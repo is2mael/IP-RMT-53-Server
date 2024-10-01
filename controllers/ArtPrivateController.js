@@ -48,3 +48,17 @@ exports.UpdateArtById = async (req, res, next) => {
         next(err)
     }
 }
+
+exports.DeleteArt = async (req, res, next) => {
+    let { id } = req.params
+    try {
+        let data = await Art.findByPk(id)
+        if (!data) {
+            throw { name: "Not Found", message: "Data Not Found" }
+        }
+        await data.destroy()
+        res.status(200).json({ message: `${data.name} has been deleted` })
+    } catch (err) {
+        next(err)
+    }
+}

@@ -24,3 +24,18 @@ exports.OriginCreate = async (req, res, next) => {
         next(err)
     }
 }
+
+exports.OriginUpdate = async (req, res, next) => {
+    let { id } = req.params
+    try {
+        let data = await Origin.findByPk(id)
+        if (!data) {
+            throw { name: "Not Found", message: "Dat Not Found" }
+        }
+
+        await data.update(req.body)
+        res.status(200).json({ message: "Origin han been updated" })
+    } catch (err) {
+        next(err)
+    }
+}
