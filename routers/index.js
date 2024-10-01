@@ -30,3 +30,9 @@ router.put("/private/origins/:id", OriginUpdate)
 router.use(errorHandling);
 
 module.exports = router;
+
+// npx sequelize-cli model:generate --name Art --attributes title:string,description:text,price:integer,artis:string,imageUrl:string,UserId:integer,OriginId:integer
+
+// npx sequelize-cli model:generate --name Origin --attributes name:string
+
+// npx sequelize-cli model:generate --name User --attributes email:string,password:string,role:string

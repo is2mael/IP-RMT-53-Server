@@ -13,7 +13,7 @@ exports.HomePrivate = async (req, res, next) => {
 }
 
 exports.PostArt = async (req, res, next) => {
-    let { title, description, price, artis, imageUrl, UserId, OriginId } = req.body    
+    let { title, description, price, artis, imageUrl, UserId, OriginId, quantity } = req.body    
     try {
         let art = await Art.create({ ...req.body, UserId: req.user.id })
         res.status(201).json({ art })
@@ -58,6 +58,15 @@ exports.DeleteArt = async (req, res, next) => {
         }
         await data.destroy()
         res.status(200).json({ message: `${data.name} has been deleted` })
+    } catch (err) {
+        next(err)
+    }
+}
+
+//upload or update foto lewat imgboxx
+exports.UpdateArt = async (res, req, next) => {
+    try {
+        
     } catch (err) {
         next(err)
     }
