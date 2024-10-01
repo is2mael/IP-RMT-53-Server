@@ -1,6 +1,6 @@
 const { HomePublic, details } = require("../controllers/ArtController");
 const { HomePrivate, PostArt, DetailsArt, UpdateArtById } = require("../controllers/ArtPrivateController");
-const { OriginAll } = require("../controllers/OriginController");
+const { OriginAll, OriginCreate } = require("../controllers/OriginController");
 const { register, login } = require("../controllers/UserController");
 const errorHandling = require("../helper/errorHanler");
 const authentication = require("../middleWare/Authentication");
@@ -23,6 +23,7 @@ router.post("/private/arts", PostArt)
 router.get("/private/arts/:id", DetailsArt)
 router.post("/private/arts/:id", UpdateArtById)
 router.get("/private/origins", OriginAll)
+router.post("/private/origins", OriginCreate)
 
 router.use(errorHandling);
 
