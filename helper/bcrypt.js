@@ -5,6 +5,6 @@ exports.encrypt = (password) => {
     return bcrypt.hashSync(password, saltRaound)
 }
 
-exports.compasre = (password, hashPassword) => {
+exports.compare = (password, hashPassword) => {
     return bcrypt.compareSync(password, hashPassword)
 }
