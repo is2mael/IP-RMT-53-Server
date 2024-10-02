@@ -15,6 +15,12 @@ function errorHandling(err, req, res, next) {
             return;
         case "Bad Request":
             res.status(400).json({  message: err.message })
+            return;
+        case "Forbidden":
+            res.status(403).json({  message: err.message })
+        case "JsonWebTokenError":
+            res.status(401).json({  message: "Invalid Token" })
+            return;
         default:
             res.status(500).json({ message: "Internet Server Error" })
     }

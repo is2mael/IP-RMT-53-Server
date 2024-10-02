@@ -24,8 +24,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: {msg:"please input your email"},
-        notNull: {msg:"please input your email"},
+        notEmpty: {msg:"can't be null"},
+        notNull: {msg:"can't be empty"},
         isEmail: {
           arg: true,
           msg: "must be in email format"
@@ -40,8 +40,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notNull: { msg: "Insert your password" },
-        notEmpty: { msg: "Insert your password" },
+        notEmpty: {msg:"can't be null"},
+        notNull: {msg:"can't be empty"},
         len: {
           args: [5],
           msg: 'please input your password more than 5 words'
