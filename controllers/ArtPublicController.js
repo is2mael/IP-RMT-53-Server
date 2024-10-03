@@ -14,6 +14,8 @@ exports.HomePublic = async (req, res, next) => {
 
 exports.details = async (req, res, next) => {
   let { id } = req.params;
+  console.log(req.params);
+  
   try {
     let seni = await Art.findByPk(id);
     if (!seni) {

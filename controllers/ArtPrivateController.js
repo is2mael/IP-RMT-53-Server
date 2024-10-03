@@ -1,4 +1,6 @@
 const { Art, User } = require("../models/");
+const upload = require("../helper/cloudinary");
+const { json } = require("sequelize");
 
 exports.HomePrivate = async (req, res, next) => {
     try {
@@ -63,10 +65,20 @@ exports.DeleteArt = async (req, res, next) => {
     }
 }
 
-//upload or update foto lewat imgboxx
-exports.UpdateArt = async (res, req, next) => {
+//upload or update foto lewat multer
+exports.UpdateArt = async (req, res, next) => {
+    let { id } = req.params;
     try {
-        
+        let data = await Art.findByPk(id)
+        if (!data) {
+            throw { name: "Not Found", message: "Data Not Found"}
+        }
+
+        const uploadResult = await upload(req.file, "Art", data, "Random")
+        data.imageUrl = uploadResult.secure_url;
+        await data.save()
+
+        res.status(200).json({ message: "Success Upload" })
     } catch (err) {
         next(err)
     }
