@@ -1,4 +1,4 @@
 [
-  { "email": "admin@admin.com", "password": "admin", "role": "Admin" },
+  { "email": "admin@admin.com", "password": "adminadmin", "role": "Admin" },
   { "email": "member@member.com", "password": "1234567", "role": "Member" }
 ]

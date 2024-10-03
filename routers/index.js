@@ -18,7 +18,6 @@ const { Admin, Member } = require("../middleWare/Authorization");
 
 const router = require("express").Router();
 const gemini = require("../helper/geminiAi");
-const gemini = require("../helper/geminiAi");
 
 router.get("/", (req, res) => {
   res.send("Hello World");
@@ -26,17 +25,17 @@ router.get("/", (req, res) => {
 
 router.post("/give-me-answer", async (req, res, next) =>{
   try {
-    let { post1, post2 } = req.body
-    let gemini = await gemini(post1, post2)
+    const { post1, post2 } = req.body
+    let data = await gemini(post1, post2)
     
-    res.status(200).json("ping")
+    res.status(200).json(data)
   } catch (error) {
     res.status(500).json({
       message: "ISE"
     })
   }
 })
-router.post("/login", login);
+router.post("/user/login", login);
 router.post("/login/google", GoogleLogin)
 router.post("/user/register", register);
 

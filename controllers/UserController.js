@@ -16,7 +16,7 @@ exports.register = async (req, res, next) => {
 };
 
 exports.login = async (req, res, next) => {
-  let { email, password } = req.body;
+  let { email } = req.body;
   try {
     if (!email) {
       throw {
@@ -32,8 +32,8 @@ exports.login = async (req, res, next) => {
     }
     let user = await User.findOne({
       where: {
-        email,
-      },
+        email
+      }
     });
 
     if (!user || !compare(password, user.password)) {
@@ -67,7 +67,7 @@ exports.GoogleLogin = async (req, res, next) => {
             username,
             email,
             password: "123456",
-            role: "Member",
+            role: "Admin",
           },
           {
             hooks: false,
@@ -81,46 +81,4 @@ exports.GoogleLogin = async (req, res, next) => {
       next(err);
     }
   }
-    // console.log(req.headers);
-    // const ticket = await client.verifyIdToken({
-    //   idToken: req.headers.google_token,
-    //   audience: process.env.G_CLIENT_ID,
-    // });
-    // const payload = ticket.getPayload();
-    // console.log(payload,"<<<<<<< ticket");
-
-    // // check dulu apakah user sudah terdaftar atau belum
-    // let user = await User.findOne({
-    //   where: {
-    //     email: payload.email
-    //   }
-    // })
-    // belum? ya daftarin
-    // if (!user) {
-    //   user = await User.create({
-    //     email: ,
-    //     password: ,
-    //     role: 
-    //   })
-    // }
-    // if (!user) {
-    //   const username = email.split("@")[0];
-    //   user = await User.create(
-    //     {
-    //       username,
-    //       email,
-    //       password: "123456",
-    //       role,
-    //     },
-    //     {
-    //       hooks: false,
-    //     }
-    //   );
-    // }
-    // //  udah daftar, tinggal di response access_token app kita
-    // const access_token = signToken({ id: user.id });
-    // res.status(200).json({ message: "Login Success" });
-//   } catch (err) {
-//     next(err);
-//   }
-// };
+   
