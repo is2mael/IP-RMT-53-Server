@@ -17,6 +17,8 @@ const authentication = require("../middleWare/Authentication");
 const { Admin, Member } = require("../middleWare/Authorization");
 
 const router = require("express").Router();
+const gemini = require("../helper/geminiAi");
+const gemini = require("../helper/geminiAi");
 
 router.get("/", (req, res) => {
   res.send("Hello World");
@@ -24,6 +26,9 @@ router.get("/", (req, res) => {
 
 router.post("/give-me-answer", async (req, res, next) =>{
   try {
+    let { post1, post2 } = req.body
+    let gemini = await gemini(post1, post2)
+    
     res.status(200).json("ping")
   } catch (error) {
     res.status(500).json({
