@@ -18,6 +18,7 @@ function errorHandling(err, req, res, next) {
             return;
         case "Forbidden":
             res.status(403).json({  message: err.message })
+            return
         case "JsonWebTokenError":
             res.status(401).json({  message: "Invalid Token" })
             return;

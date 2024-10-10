@@ -8,7 +8,7 @@ const client = new OAuth2Client();
 exports.register = async (req, res, next) => {
   let { email, password } = req.body;
   try {
-    await User.create({ email, password });
+    let user = await User.create({ email, password });
     res.status(201).json({ message: "your data has been created" });
   } catch (error) {
     next(error);
@@ -16,33 +16,35 @@ exports.register = async (req, res, next) => {
 };
 
 exports.login = async (req, res, next) => {
-  let { email } = req.body;
+  let { email, password } = req.body;
+  if (!email) {
+    throw {
+      name: "Bad Request",
+      message: "Please input your email correctly",
+    };
+  }
+  if (!password) {
+    throw {
+      name: "Bad Request",
+      message: "Please input your password correctly",
+    };
+  }
+  
   try {
-    if (!email) {
-      throw {
-        name: "Bad Request",
-        message: "Please input your email correctly",
-      };
-    }
-    if (!password) {
-      throw {
-        name: "Bad Request",
-        message: "Please input your password correctly",
-      };
-    }
-    let user = await User.findOne({
+    const user = await User.findOne({
       where: {
         email
       }
     });
-
-    if (!user || !compare(password, user.password)) {
+    
+    if (!user || await !compare(password, user.password)) {
       throw { name: "Unauthorized", message: "Email or Password wrong" };
     }
 
-    let access_token = generateToken({ id: user.id });
+    const access_token = generateToken({ id: user.id });
     res.status(200).json({ access_token });
   } catch (err) {
+    console.log(err);
     next(err);
   }
 };

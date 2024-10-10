@@ -18,8 +18,8 @@ exports.OriginCreate = async (req, res, next) => {
         if (!name) {
             throw { name: "Bad Request", message: "Please input something" }
         }
-        await Origin.create({ name })
-        res.status(201).json({ message: "Data has been created" })
+        let data = await Origin.create({ name })
+        res.status(201).json({ message: "Data has been created", data : data })
     } catch (err) {
         next(err)
     }
